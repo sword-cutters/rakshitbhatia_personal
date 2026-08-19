@@ -21,11 +21,15 @@
     if (!speech) return;
     speech.textContent = text;
     speech.style.setProperty('--bx', '0px');
-    const rect = speech.getBoundingClientRect();
+    const robotRect = robot.getBoundingClientRect();
+    const robotCenterX = robotRect.left + robotRect.width / 2;
+    const halfWidth = speech.offsetWidth / 2;
     const margin = 10;
     let shift = 0;
-    if (rect.left < margin) shift = margin - rect.left;
-    else if (rect.right > innerWidth - margin) shift = (innerWidth - margin) - rect.right;
+    const predictedLeft = robotCenterX - halfWidth;
+    const predictedRight = robotCenterX + halfWidth;
+    if (predictedLeft < margin) shift = margin - predictedLeft;
+    else if (predictedRight > innerWidth - margin) shift = (innerWidth - margin) - predictedRight;
     speech.style.setProperty('--bx', shift + 'px');
     speech.classList.add('show');
     clearTimeout(say.timer);
