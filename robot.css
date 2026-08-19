@@ -1,6 +1,6 @@
 .robot-buddy{position:fixed;top:70vh;left:12px;width:48px;height:54px;z-index:8;pointer-events:none;filter:drop-shadow(0 3px 7px rgba(21,21,21,.4))}
-.robot-flip{width:100%;height:100%;position:relative;transition:transform .25s ease}
-.robot-buddy.facing-left .robot-flip{transform:scaleX(-1)}
+.robot-flip{--rscale:1;width:100%;height:100%;position:relative;transition:transform .25s ease;transform:scale(var(--rscale))}
+.robot-buddy.facing-left .robot-flip{transform:scale(var(--rscale)) scaleX(-1)}
 .robot-bounce{width:100%;height:100%;position:relative}
 .robot-buddy.walking .robot-bounce{animation:robotBob .3s ease-in-out infinite alternate}
 .robot-buddy.jump .robot-bounce{animation:robotJump .45s ease}
@@ -22,5 +22,5 @@
 .robot-speech:after{content:'';position:absolute;left:calc(50% - var(--bx,0px));top:100%;transform:translateX(-50%);width:0;height:0;border:6px solid transparent;border-top-color:var(--ink)}
 .robot-speech:before{content:'';position:absolute;left:calc(50% - var(--bx,0px));top:100%;transform:translateX(-50%) translateY(-2px);width:0;height:0;border:5px solid transparent;border-top-color:var(--paper);z-index:1}
 .robot-speech.show{opacity:1;transform:translate(calc(-50% + var(--bx,0px)),0) scale(1)}
-@media(max-width:720px){.robot-buddy{transform:scale(.78);transform-origin:top left}}
+@media(max-width:720px){.robot-flip{--rscale:.78}}
 @media(prefers-reduced-motion:reduce){.robot-buddy{display:none}}
