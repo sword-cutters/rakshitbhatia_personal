@@ -1,0 +1,26 @@
+.robot-buddy{position:fixed;top:70vh;left:12px;width:48px;height:54px;z-index:8;pointer-events:none;filter:drop-shadow(0 3px 7px rgba(21,21,21,.4))}
+.robot-flip{width:100%;height:100%;position:relative;transition:transform .25s ease}
+.robot-buddy.facing-left .robot-flip{transform:scaleX(-1)}
+.robot-bounce{width:100%;height:100%;position:relative}
+.robot-buddy.walking .robot-bounce{animation:robotBob .3s ease-in-out infinite alternate}
+.robot-buddy.jump .robot-bounce{animation:robotJump .45s ease}
+.robot-antenna{position:absolute;top:-9px;left:50%;width:2px;height:9px;background:var(--ink);box-shadow:0 0 0 1px var(--paper);transform:translateX(-50%)}
+.robot-antenna:before{content:'';position:absolute;top:-5px;left:50%;width:6px;height:6px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 1.5px var(--paper);transform:translateX(-50%)}
+.robot-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:34px;height:22px;background:var(--ink);border-radius:8px;box-shadow:0 0 0 2px var(--paper);display:flex;align-items:center;justify-content:center;gap:6px}
+.robot-eye{width:7px;height:7px;background:var(--lime);border-radius:50%;position:relative;overflow:hidden}
+.robot-eye i{position:absolute;width:3px;height:3px;background:var(--ink);border-radius:50%;top:2px;left:2px;transition:transform .12s linear}
+.robot-body{position:absolute;top:24px;left:50%;transform:translateX(-50%);width:40px;height:18px;background:var(--orange);border-radius:6px;box-shadow:0 0 0 2px var(--paper),0 0 0 3px var(--ink)}
+.robot-chest{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:10px;height:10px;border:1px solid var(--ink);border-radius:2px}
+.robot-legs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:32px;height:8px;display:flex;justify-content:space-between}
+.robot-legs i{display:block;width:8px;height:8px;background:var(--ink);border-radius:2px;box-shadow:0 0 0 1.5px var(--paper);transform-origin:top center}
+.robot-buddy.walking .leg-l{animation:legSwing .32s ease-in-out infinite alternate}
+.robot-buddy.walking .leg-r{animation:legSwing .32s ease-in-out infinite alternate-reverse}
+@keyframes legSwing{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+@keyframes robotBob{to{transform:translateY(-2px)}}
+@keyframes robotJump{30%{transform:translateY(-14px)}60%{transform:translateY(0)}80%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+.robot-speech{position:absolute;left:50%;bottom:100%;margin-bottom:10px;transform:translate(-50%,8px) scale(.85);opacity:0;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);border-radius:10px;padding:6px 11px;font:600 11px 'DM Mono';white-space:nowrap;pointer-events:none;transition:opacity .3s ease,transform .3s ease;box-shadow:3px 3px 0 var(--ink);z-index:1}
+.robot-speech:after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);width:0;height:0;border:6px solid transparent;border-top-color:var(--ink)}
+.robot-speech:before{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%) translateY(-2px);width:0;height:0;border:5px solid transparent;border-top-color:var(--paper);z-index:1}
+.robot-speech.show{opacity:1;transform:translate(-50%,0) scale(1)}
+@media(max-width:720px){.robot-buddy{transform:scale(.78);transform-origin:top left}}
+@media(prefers-reduced-motion:reduce){.robot-buddy{display:none}}
