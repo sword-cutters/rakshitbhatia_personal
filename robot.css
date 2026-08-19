@@ -18,9 +18,9 @@
 @keyframes legSwing{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
 @keyframes robotBob{to{transform:translateY(-2px)}}
 @keyframes robotJump{30%{transform:translateY(-14px)}60%{transform:translateY(0)}80%{transform:translateY(-4px)}100%{transform:translateY(0)}}
-.robot-speech{position:absolute;left:50%;bottom:100%;margin-bottom:10px;transform:translate(-50%,8px) scale(.85);opacity:0;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);border-radius:10px;padding:6px 11px;font:600 11px 'DM Mono';white-space:nowrap;pointer-events:none;transition:opacity .3s ease,transform .3s ease;box-shadow:3px 3px 0 var(--ink);z-index:1}
-.robot-speech:after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);width:0;height:0;border:6px solid transparent;border-top-color:var(--ink)}
-.robot-speech:before{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%) translateY(-2px);width:0;height:0;border:5px solid transparent;border-top-color:var(--paper);z-index:1}
-.robot-speech.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.robot-speech{position:absolute;left:50%;bottom:100%;margin-bottom:10px;max-width:min(200px,55vw);width:max-content;transform:translate(calc(-50% + var(--bx,0px)),8px) scale(.85);opacity:0;background:var(--paper);color:var(--ink);border:1.5px solid var(--ink);border-radius:10px;padding:6px 11px;font:600 11px 'DM Mono';line-height:1.4;text-align:center;white-space:normal;pointer-events:none;transition:opacity .3s ease,transform .3s ease;box-shadow:3px 3px 0 var(--ink);z-index:1}
+.robot-speech:after{content:'';position:absolute;left:calc(50% - var(--bx,0px));top:100%;transform:translateX(-50%);width:0;height:0;border:6px solid transparent;border-top-color:var(--ink)}
+.robot-speech:before{content:'';position:absolute;left:calc(50% - var(--bx,0px));top:100%;transform:translateX(-50%) translateY(-2px);width:0;height:0;border:5px solid transparent;border-top-color:var(--paper);z-index:1}
+.robot-speech.show{opacity:1;transform:translate(calc(-50% + var(--bx,0px)),0) scale(1)}
 @media(max-width:720px){.robot-buddy{transform:scale(.78);transform-origin:top left}}
 @media(prefers-reduced-motion:reduce){.robot-buddy{display:none}}
