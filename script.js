@@ -39,7 +39,31 @@ const heroArt = document.querySelector('.hero-art');
 window.addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; progress.style.width = `${(scrollY / max) * 100}%`; nav.classList.toggle('scrolled', scrollY > 16); }, { passive: true });
 document.querySelector('.hero').addEventListener('pointermove', e => { const x = (e.clientX / innerWidth - .5) * 12; const y = (e.clientY / innerHeight - .5) * 12; heroArt.style.transform = `translate(${x}px, calc(-43% + ${y}px))`; });
 window.addEventListener('load', () => setTimeout(() => document.querySelector('.loader').classList.add('done'), 550));
-document.querySelectorAll('.track-button').forEach(button => button.addEventListener('click', () => { const track = button.dataset.track; document.querySelectorAll('.track-button').forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-selected', item === button); }); document.querySelectorAll('.track-copy').forEach(panel => panel.classList.toggle('active', panel.dataset.panel === track)); }));
+function animateLensPanel(panel) {
+  if (!panel) return;
+  panel.querySelectorAll('.lens-count[data-count]').forEach(el => {
+    const end = +el.dataset.count, prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '', start = performance.now();
+    const run = now => {
+      const p = Math.min((now - start) / 1100, 1);
+      el.textContent = prefix + Math.round(end * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(run);
+    };
+    requestAnimationFrame(run);
+  });
+  panel.querySelectorAll('.lens-metric').forEach(metric => {
+    metric.classList.remove('in-view');
+    void metric.offsetWidth;
+    metric.classList.add('in-view');
+  });
+}
+document.querySelectorAll('.track-button').forEach(button => button.addEventListener('click', () => { const track = button.dataset.track; document.querySelectorAll('.track-button').forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-selected', item === button); }); document.querySelectorAll('.track-copy').forEach(panel => panel.classList.toggle('active', panel.dataset.panel === track)); animateLensPanel(document.querySelector('.track-copy.active')); }));
+const trackStage = document.querySelector('.track-stage');
+if (trackStage) {
+  const lensObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { animateLensPanel(document.querySelector('.track-copy.active')); lensObserver.unobserve(entry.target); }
+  }), { threshold: .4 });
+  lensObserver.observe(trackStage);
+}
 
 const recSlider = document.querySelector('.rec-slider');
 if (recSlider) {
