@@ -20,6 +20,13 @@
   function say(text, duration = 2600) {
     if (!speech) return;
     speech.textContent = text;
+    speech.style.setProperty('--bx', '0px');
+    const rect = speech.getBoundingClientRect();
+    const margin = 10;
+    let shift = 0;
+    if (rect.left < margin) shift = margin - rect.left;
+    else if (rect.right > innerWidth - margin) shift = (innerWidth - margin) - rect.right;
+    speech.style.setProperty('--bx', shift + 'px');
     speech.classList.add('show');
     clearTimeout(say.timer);
     say.timer = setTimeout(() => speech.classList.remove('show'), duration);
